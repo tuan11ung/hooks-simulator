@@ -12,7 +12,10 @@ import {
 // Danh sách các menu
 const navLinks = [
   { name: 'useState', href: '/home/usestate' },
-  { name: 'useEffect', href: '/home/useeffect' }
+  { name: 'useEffect', href: '/home/useeffect' },
+  { name: 'useContext', href: '/home/usecontext' },
+  { name: 'useReducer', href: '/home/usereducer' },
+  { name: 'useRef', href: '/home/useref' },
 ];
 
 export default function DashboardLayout({
