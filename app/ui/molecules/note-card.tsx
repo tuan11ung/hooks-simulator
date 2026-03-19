@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { Button } from '../atoms/button';
 import { Note } from '@/app/reducers/noteReducer'; // Import Type Note từ file reducer
@@ -5,9 +7,12 @@ import { Note } from '@/app/reducers/noteReducer'; // Import Type Note từ file
 type NoteCardProps = {
   note: Note;
   onDelete: (id: string) => void;
+  onUpdate: (updateNote: Note) => void;
 };
 
-export const NoteCard = ({ note, onDelete }: NoteCardProps) => {
+export const NoteCard = ({ note, onDelete, onUpdate }: NoteCardProps) => {
+
+
   return (
     <div className='border border-gray-300 p-2.5 rounded'>
       <h4 className='mb-1'>{note.title}</h4>
@@ -17,6 +22,8 @@ export const NoteCard = ({ note, onDelete }: NoteCardProps) => {
       <Button onClick={() => onDelete(note.id)} variant="danger">
         Xóa ghi chú
       </Button>
+
+
     </div>
   );
 };
