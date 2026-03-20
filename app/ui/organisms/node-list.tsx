@@ -5,17 +5,18 @@ import { Note } from '@/app/reducers/noteReducer';
 type NoteListProps = {
   notes: Note[];
   onDeleteNote: (id: string) => void;
+  onUpdateNote: (updatedNote: Note) => void
 };
 
-export const NoteList = ({ notes, onDeleteNote }: NoteListProps) => {
+export const NoteList = ({ notes, onDeleteNote, onUpdateNote }: NoteListProps) => {
   if (notes.length === 0) {
-    return <p style={{ color: 'gray' }}>Chưa có ghi chú nào. Hãy thêm đi bro!</p>;
+    return <p className='text-gray-500'>Chưa có ghi chú nào. Hãy thêm đi bro!</p>;
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <div className='flex flex-col gap-2.5'>
       {notes.map((note) => (
-        <NoteCard key={note.id} note={note} onDelete={onDeleteNote} />
+        <NoteCard key={note.id} note={note} onDelete={onDeleteNote} onUpdate={onUpdateNote}/>
       ))}
     </div>
   );

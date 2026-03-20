@@ -7,7 +7,7 @@ import { NoteList } from '@/app/ui/organisms/node-list';
 
 export default function NoteApp() {
   const [notes, dispatch] = useReducer(noteReducer, initialState);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState<string>('');
 
   const handleAddNote = () => {
     if (!inputText.trim()) return;
@@ -25,8 +25,12 @@ export default function NoteApp() {
     dispatch({ type: 'DELETE_NOTE', payload: { id } });
   };
 
+  const handleUpdateNote = (updatedNote: Note) => {
+    dispatch({ type: 'UPDATE_NOTE', payload: updatedNote });
+  };
+
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }} className='p-5 max-w-100 mx-auto text-black'>
+    <div className='p-5 max-w-100 mx-auto text-black'>
       <h2>Sổ Tay Của Bro</h2>
       
       {/* Giao diện nhập liệu đã được bọc gọn trong Molecule */}
@@ -40,6 +44,7 @@ export default function NoteApp() {
       <NoteList 
         notes={notes} 
         onDeleteNote={handleDeleteNote} 
+        onUpdateNote={handleUpdateNote}
       />
     </div>
   );
