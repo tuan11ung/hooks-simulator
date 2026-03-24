@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 export default async function TablePage({ params }: { params: { page: string } }) {
-  const { page } = params
+  const { page } = await params
   const currentPage = parseInt(page, 10);
   console.log(`page: ${page}`)
 

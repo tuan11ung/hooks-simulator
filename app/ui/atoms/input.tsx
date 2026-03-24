@@ -3,7 +3,7 @@ import React from 'react';
 type InputProps = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown: (e: React.KeyboardEvent) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
 };
 

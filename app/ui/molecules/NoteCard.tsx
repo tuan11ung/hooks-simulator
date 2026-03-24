@@ -1,27 +1,27 @@
 import { useState } from 'react';
 import { Button } from '../atoms/button';
 import { Note } from '@/app/reducers/noteReducer'; // Import Type Note từ file reducer
+import { useNotes } from '@/app/contexts/NoteContext';
 
 type NoteCardProps = {
   note: Note;
-  onDelete: (id: string) => void;
-  onUpdate: (updatedNote: Note) => void;
 };
 
-export const NoteCard = ({ note, onDelete, onUpdate }: NoteCardProps) => {
+export const NoteCard = ({ note }: NoteCardProps) => {
+  const { dispatch } = useNotes();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content)
 
+
   const handleSave = () => {
-    onUpdate({
-      ...note,
-      title: title,
-      content: content
+    dispatch({ // Tự gọi lệnh UPDATE
+      type: 'UPDATE_NOTE', 
+      payload: { ...note, title: title, content: content } 
     });
     setIsEditing(false);
-  }
+  };
 
   if (isEditing) {
     return (
@@ -61,12 +61,12 @@ export const NoteCard = ({ note, onDelete, onUpdate }: NoteCardProps) => {
 
   return (
     <div className='border border-gray-300 p-2.5 rounded'>
-      <h4 className='mb-1'>{note.title}</h4>
+      <h4 className='mb-1 font-bold'>{note.title}</h4>
       <p className='mb-2.5'>{note.content}</p>
       
       <div className='flex gap-2.5'>
         <Button onClick={() => setIsEditing(true)} variant='primary'>Sửa ghi chú</Button>
-        <Button onClick={() => onDelete(note.id)} variant="danger">Xóa ghi chú</Button>
+        <Button onClick={() => dispatch({ type: 'DELETE_NOTE', payload: { id: note.id } })} variant="danger">Xóa</Button>
       </div>
 
     </div>

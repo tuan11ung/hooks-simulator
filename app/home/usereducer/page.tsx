@@ -1,51 +1,22 @@
 'use client';
 
-import React, { useReducer, useState } from 'react';
-import { noteReducer, initialState, Note } from '@/app/reducers/noteReducer';
-import { NoteInputGroup } from '@/app/ui/molecules/note-input-group';
-import { NoteList } from '@/app/ui/organisms/node-list';
+import React from 'react';
+import { NoteInputGroup } from '@/app/ui/molecules/NoteInputGroup';
+import { NoteList } from '@/app/ui/organisms/NoteList';
+import { NoteProvider } from '@/app/contexts/NoteContext';
 
 export default function NoteApp() {
-  const [notes, dispatch] = useReducer(noteReducer, initialState);
-  const [inputText, setInputText] = useState<string>('');
-
-  const handleAddNote = () => {
-    if (!inputText.trim()) return;
-    const newNote: Note = {
-      id: crypto.randomUUID(),
-      title: 'Ghi chú nhanh',
-      content: inputText,
-      createdAt: Date.now(),
-    };
-    dispatch({ type: 'ADD_NOTE', payload: newNote });
-    setInputText('');
-  };
-
-  const handleDeleteNote = (id: string) => {
-    dispatch({ type: 'DELETE_NOTE', payload: { id } });
-  };
-
-  const handleUpdateNote = (updatedNote: Note) => {
-    dispatch({ type: 'UPDATE_NOTE', payload: updatedNote });
-  };
-
   return (
-    <div className='p-5 max-w-100 mx-auto text-black'>
-      <h2>Sổ Tay Của Bro</h2>
-      
-      {/* Giao diện nhập liệu đã được bọc gọn trong Molecule */}
-      <NoteInputGroup 
-        inputText={inputText} 
-        onInputChange={(e) => setInputText(e.target.value)} 
-        onAdd={handleAddNote} 
-      />
+    <NoteProvider>
+      <div className='p-5 max-w-100 mx-auto text-black'>
+        <h2>Sổ Tay Của Bro</h2>
+        
+        {/* Giao diện nhập liệu đã được bọc gọn trong Molecule */}
+        <NoteInputGroup/>
 
-      {/* Danh sách ghi chú đã được bọc gọn trong Organism */}
-      <NoteList 
-        notes={notes} 
-        onDeleteNote={handleDeleteNote} 
-        onUpdateNote={handleUpdateNote}
-      />
-    </div>
+        {/* Danh sách ghi chú đã được bọc gọn trong Organism */}
+        <NoteList/>
+      </div>
+    </NoteProvider>
   );
 }

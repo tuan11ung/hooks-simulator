@@ -8,13 +8,17 @@ type ButtonProps = {
 };
 
 export const Button = ({ children, onClick, variant = 'primary' }: ButtonProps) => {
-  const color = variant === 'danger' ? 'red' : 'blue';
+  const baseClasses = "px-5 py-2.5 rounded-lg font-medium text-white transition-all active:scale-95 shadow-md cursor-pointer";
+
+  const variantClasses = {
+    primary: "bg-blue-600 hover:bg-blue-700",
+    danger: "bg-red-500 hover:bg-red-600",
+  };
   
   return (
     <button 
       onClick={onClick} 
-      style={{ backgroundColor: color }}
-      className='py-2 px-4 text-white rounded cursor-pointer'
+      className={`${baseClasses} ${variantClasses[variant]}`}
     >
       {children}
     </button>
